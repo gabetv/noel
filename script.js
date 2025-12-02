@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- CONSTANTES ET ÉTAT ---
     const [personM, personG] = ["Mathilde", "Gaylord"];
     const defaultPrizesM = ["Un resto en amoureux", "Un weekend surprise", "Un pull tout doux", "Un jeu vidéo tant attendendu", "Un accessoire pour son hobby", "Un bon pour un massage", "Une soirée sans les enfants", "Un objet collector", "Le droit de choisir tous les films pendant 1 mois", "Un vêtement de sport", "Une BD dédicacée", "Un petit déjeuner au lit"];
-    const defaultPrizesG = ["Un bouquet de ses fleurs préférées", "Un bijou fin et élégant", "Une journée shopping illimitée", "Un soin en institut", "Un livre d'un auteur qu'elle adore", "Une place de concert", "Un sac à main de créateur", "Une série de cours (poterie, dessin...)", "Le petit-déjeuner au lit pendant une semaine", "Un parfum de luxe", "Une séance photo professionnelle", "Un pyjama en soie"];
+    const defaultPrizesG = ["Un bouquet de fleurs ", "Dix minutes de massage", "Une séance bouton dans les cheveux", "Une séance pour faire le vernis des pieds ", "Un gros calin :p", "Réveil le dimanche matin pour Thalia", "Un tableau au choix", "Je te déssine dessus", "Petit-déjeuner au lit (week end)  pain au chocolat jus d'orange", "Massage de la nuque", "Tu peux copier le lot de ton choix déjà reçu", "Un chocolat chaud et un plaid chaud"];
 
     let finalAssignments = []; // Pour stocker les lots finaux une fois générés
 
