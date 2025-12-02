@@ -1,0 +1,69 @@
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calendrier de l'Avent M&G</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="container">
+        <header>
+            <h1>Calendrier de l'Avent</h1>
+        </header>
+
+        <!-- Vue 1: Sélection de l'utilisateur -->
+        <div id="user-selection-view">
+            <h2>Qui êtes-vous ?</h2>
+            <div class="user-selection-container">
+                <button class="user-button" data-user="Mathilde">Mathilde <span id="status-Mathilde"></span></button>
+                <button class="user-button" data-user="Gaylord">Gaylord <span id="status-Gaylord"></span></button>
+            </div>
+            <div id="generate-final-container" class="hidden">
+                <hr>
+                <p>Tous les lots sont prêts !</p>
+                <button id="generate-final-btn" class="main-button">Générer le Calendrier Final</button>
+            </div>
+            <div class="reset-container">
+                <hr>
+                <button id="reset-app-btn" class="secondary-button">Réinitialiser le calendrier</button>
+            </div>
+        </div>
+
+        <!-- Vue 2: Configuration des lots -->
+        <div id="config-view" class="hidden">
+            <button id="back-to-selection-btn" class="back-button">&larr; Retour</button>
+            <h2 id="config-title"></h2>
+            <form id="config-form" class="prizes-form"></form>
+            <button id="save-prizes-btn" class="main-button">Enregistrer mes lots</button>
+        </div>
+
+        <!-- Vue 3: Calendrier -->
+        <div id="calendar-view" class="hidden">
+            <div id="share-link-container">
+                <p>✨ **Votre calendrier est prêt ! Partagez ce lien pour que tout le monde voie la même chose :** ✨</p>
+                <input type="text" id="share-link-input" readonly>
+            </div>
+            <main id="calendar-grid"></main>
+            <div id="recap-button-container" class="hidden">
+                <hr>
+                <button id="show-recap-btn" class="main-button">Afficher le Récapitulatif</button>
+            </div>
+        </div>
+        
+        <!-- Vue 4: Récapitulatif -->
+        <div id="recap-view" class="hidden">
+            <button id="back-to-calendar-btn" class="back-button">&larr; Retour au calendrier</button>
+            <h2>Récapitulatif des Lots</h2>
+            <div id="recap-list"></div>
+        </div>
+    </div>
+
+    <!-- Conteneur pour les pop-ups (modals) -->
+    <div id="modals-container"></div>
+
+    <script src="script.js"></script>
+</body>
+</html>

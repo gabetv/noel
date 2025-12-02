@@ -1,0 +1,463 @@
+@import url('https://fonts.googleapis.com/css2?family=Mountains+of_Christmas:wght@700&family=Lato:wght@400;700&display=swap');
+
+:root {
+    --font-title: 'Mountains of Christmas', cursive;
+    --font-body: 'Lato', sans-serif;
+    --color-dark-green: #0a4c24;
+    --color-dark-red: #a41e29;
+    --color-gold: #ffd700;
+    --color-light: #f8f8f8;
+    --color-dark: #2c3e50;
+    --shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+}
+
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--font-body);
+    margin: 0;
+    background-color: var(--color-dark);
+    background-image: 
+        radial-gradient(white, rgba(255,255,255,.2) 2px, transparent 40px),
+        radial-gradient(white, rgba(255,255,255,.15) 1px, transparent 30px),
+        radial-gradient(white, rgba(255,255,255,.1) 2px, transparent 40px),
+        radial-gradient(rgba(255,255,255,.4), rgba(255,255,255,.1) 2px, transparent 30px);
+    background-size: 550px 550px, 350px 350px, 250px 250px, 150px 150px;
+    background-position: 0 0, 40px 60px, 130px 270px, 70px 100px;
+    color: var(--color-light);
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: 100vh;
+    padding: 1rem;
+    overflow-x: hidden; /* Prevent horizontal scroll from float animation */
+}
+
+.container {
+    width: 100%;
+    max-width: 900px;
+    background-color: rgba(44, 62, 80, 0.85);
+    backdrop-filter: blur(10px);
+    border-radius: 15px;
+    padding: 2rem;
+    box-shadow: var(--shadow);
+    border: 1px solid var(--color-gold);
+    margin-top: 1rem;
+}
+
+h1, h2 {
+    font-family: var(--font-title);
+    text-align: center;
+    color: var(--color-gold);
+    text-shadow: 2px 2px 5px rgba(0,0,0,0.5);
+}
+
+h1 {
+    font-size: 3.5rem;
+    margin-top: 0;
+    margin-bottom: 1rem;
+}
+
+h2 {
+    font-size: 2.2rem;
+}
+
+/* --- Setup View --- */
+#setup-view p {
+    text-align: center;
+    font-size: 1rem;
+    max-width: 600px;
+    margin: 0 auto 2rem auto;
+}
+
+.prizes-form {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+    margin-bottom: 2rem;
+}
+
+.prize-section {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+}
+
+.prize-section h3 {
+    grid-column: 1 / -1;
+    text-align: center;
+    margin: 0 0 1rem 0;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid var(--color-gold);
+    font-size: 1.5rem;
+    font-family: var(--font-body);
+}
+
+.prize-section h3 span:first-of-type {
+    color: var(--color-dark-red);
+}
+
+.prize-section h3 span:last-of-type {
+    color: var(--color-dark-green);
+}
+
+.prize-input {
+    width: 100%;
+    padding: 0.8rem;
+    background-color: rgba(0,0,0,0.3);
+    border: 1px solid var(--color-light);
+    border-radius: 5px;
+    color: var(--color-light);
+    font-size: 1rem;
+}
+
+.prize-input::placeholder {
+    color: rgba(255,255,255,0.5);
+}
+
+.main-button {
+    display: block;
+    width: 100%;
+    padding: 1rem;
+    font-family: var(--font-title);
+    font-size: 1.8rem;
+    color: var(--color-dark);
+    background-color: var(--color-gold);
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.main-button:hover {
+    transform: scale(1.02);
+    box-shadow: 0 0 20px var(--color-gold);
+}
+
+/* --- Calendar View --- */
+#calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
+    gap: 1rem;
+}
+
+.day-card {
+    aspect-ratio: 1 / 1;
+    background: linear-gradient(145deg, var(--color-dark-red), #c8242f);
+    color: var(--color-light);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: var(--font-title);
+    font-size: 2.5rem;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: transform 0.3s, box-shadow 0.3s;
+    box-shadow: var(--shadow);
+    position: relative;
+    overflow: hidden;
+    
+    /* Animations */
+    opacity: 0; /* Start hidden for card-enter animation */
+    animation: card-enter 0.5s ease-out forwards, float 3s ease-in-out infinite alternate;
+    /* Delay for card-enter will be set by JS via style attribute */
+}
+
+.day-card:before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(255,255,255,0.2), transparent 20%);
+    transform: rotate(0deg);
+    transition: transform 0.5s;
+}
+
+.day-card:hover {
+    transform: scale(1.05) rotate(3deg);
+    box-shadow: 0 0 25px var(--color-dark-red);
+}
+
+.day-card:hover:before {
+    transform: rotate(360deg);
+}
+
+.day-card.green {
+    background: linear-gradient(145deg, var(--color-dark-green), #2b7c4f);
+}
+.day-card.green:hover {
+    box-shadow: 0 0 25px var(--color-dark-green);
+}
+
+/* --- Modal --- */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.7);
+    backdrop-filter: blur(5px);
+    align-items: center;
+    justify-content: center;
+    animation: modal-enter 0.4s ease-out forwards; /* Changed animation */
+}
+
+.modal-content {
+    background-color: var(--color-light);
+    color: var(--color-dark);
+    padding: 20px;
+    border: 2px solid var(--color-gold);
+    width: 90%;
+    max-width: 500px;
+    border-radius: 15px;
+    position: relative;
+    text-align: center;
+    box-shadow: var(--shadow);
+}
+
+.modal-content p {
+    font-size: 1.1rem;
+}
+
+.modal-content strong {
+    color: var(--color-dark-red);
+}
+
+.close-button {
+    color: #aaa;
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    font-size: 32px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+/* --- Share Link --- */
+#share-link-container {
+    margin: 1rem 0 2rem 0;
+    text-align: center;
+}
+#share-link-container p {
+    font-size: 1rem;
+}
+#share-link-input {
+    width: 100%;
+    padding: 0.5rem;
+    margin-top: 0.5rem;
+    border-radius: 5px;
+    border: 1px solid var(--color-dark);
+    text-align: center;
+    font-size: 0.9rem;
+}
+
+/* --- User Selection View --- */
+.user-selection-container {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin: 2rem 0;
+}
+.user-button {
+    font-family: var(--font-body);
+    font-size: 1.2rem;
+    padding: 1.5rem;
+    border-radius: 10px;
+    border: 2px solid var(--color-light);
+    background-color: transparent;
+    color: var(--color-light);
+    cursor: pointer;
+    transition: all 0.2s;
+}
+.user-button:hover {
+    transform: scale(1.05);
+    background-color: var(--color-light);
+    color: var(--color-dark);
+}
+.user-button[data-user="Mathilde"]:hover {
+    border-color: var(--color-dark-red);
+}
+.user-button[data-user="Gaylord"]:hover {
+    border-color: var(--color-dark-green);
+}
+span[id^=status-] {
+    display: inline-block;
+    margin-left: 0.5rem;
+    color: var(--color-gold);
+}
+
+/* --- Back button --- */
+.back-button {
+    background: none;
+    border: none;
+    color: var(--color-light);
+    font-size: 1rem;
+    cursor: pointer;
+    position: absolute;
+    top: 1.5rem;
+    left: 1.5rem;
+}
+
+/* --- General purpose separator --- */
+hr {
+    border: none;
+    border-top: 1px solid var(--color-gold);
+    margin: 2rem 0;
+}
+
+/* --- Recap View --- */
+#recap-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    max-height: 60vh;
+    overflow-y: auto;
+}
+.recap-item {
+    display: grid;
+    grid-template-columns: 3rem 1fr;
+    gap: 0.5rem 1rem;
+    padding: 0.5rem;
+    background-color: rgba(0,0,0,0.2);
+    border-radius: 5px;
+    align-items: center;
+}
+.recap-item .day {
+    grid-row: 1 / 3;
+    font-family: var(--font-title);
+    font-size: 1.5rem;
+    text-align: center;
+}
+.recap-item .to {
+    font-weight: bold;
+    grid-column: 2;
+}
+.recap-item .prize {
+    font-style: italic;
+    grid-column: 2;
+}
+
+/* --- Opened Day Card --- */
+.day-card.opened {
+    background: var(--color-dark);
+    color: var(--color-light);
+    cursor: default;
+    box-shadow: none; /* Remove shadow to make it flatter */
+}
+.day-card.opened:hover {
+    transform: none; /* Disable hover scale/rotate */
+    box-shadow: none;
+}
+.day-card.opened span {
+    text-decoration: line-through;
+}
+
+/* --- Helpers --- */
+.hidden {
+    display: none !important;
+}
+
+@keyframes card-enter {
+    from {
+        opacity: 0;
+        transform: scale(0.8) translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+@keyframes float {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-5px); }
+    100% { transform: translateY(0px); }
+}
+
+@keyframes modal-enter {
+    0% {
+        opacity: 0;
+        transform: scale(0.7);
+    }
+    80% {
+        opacity: 1;
+        transform: scale(1.05);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+
+/* --- Reset Button --- */
+.reset-container {
+    text-align: center;
+}
+.secondary-button {
+    background: transparent;
+    border: 1px solid var(--color-gold);
+    color: var(--color-gold);
+    font-family: var(--font-body);
+    font-size: 1rem;
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+.secondary-button:hover {
+    background: var(--color-gold);
+    color: var(--color-dark);
+}
+
+
+/* --- Responsive Styles for Mobile --- */
+@media (max-width: 600px) {
+    body {
+        padding: 0.5rem;
+        align-items: flex-start;
+    }
+    .container {
+        padding: 1rem;
+        margin-top: 0.5rem;
+    }
+    h1 {
+        font-size: 2.5rem;
+    }
+    h2 {
+        font-size: 1.8rem;
+    }
+    .main-button {
+        font-size: 1.5rem;
+        padding: 0.8rem;
+    }
+    .user-selection-container {
+        flex-direction: column;
+    }
+    .user-button {
+        padding: 1rem;
+    }
+    .prize-section {
+        grid-template-columns: 1fr;
+    }
+    #calendar-grid {
+        grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+        gap: 0.5rem;
+    }
+    .day-card {
+        font-size: 2rem;
+    }
+    .back-button {
+        top: 1rem;
+        left: 1rem;
+    }
+    .modal-content{
+        padding: 20px 15px;
+    }
+}
